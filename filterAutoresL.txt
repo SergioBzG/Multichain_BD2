@@ -1,0 +1,9 @@
+multichain-cli Art create streamfilter autoresFilter4 '{}' 'function filterstreamitem() {var obj = getfilterstreamitem(); var json = obj.data.json; var count = 0; numberRegex = /^[0-9]*$/;emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\"+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i; if(Object.keys(json).length !== 3){return "Ingrese un Json con tres propiedades";} if(obj.keys.length != 1){return "Se requiere una única clave";} if(obj.format != \"json\"){return "Sólo se permiten datos en formato JSON"} if(!json.hasOwnProperty(\"nombre\")){return "El JSON ingresado no tiene la propiedad nombre";} if(!json.hasOwnProperty("agno_nacimiento")) {return "El JSON ingresado no tiene la propiedad agno_nacimiento";} else if(!numberRegex.test(json.agno_nacimiento)) {return "El campo agno_nacimiento no es numérico";} if(!json.hasOwnProperty("correo")) {return "El JSON ingresado no tiene la propiedad correo";} else if(!emailRegex.test(json.correo)) {return "El campo correo no es válido"}}'
+
+multichain-cli Art getaddresses
+
+multichain-cli Art approvefrom 1Fk5hbsCQY6v8jK2PQwKUvSq5j7RDxgwBu5vgw autoresFilter4 '{"for": "Autores", "approve": true}'
+
+multichain-cli Art publish Autores key1 '{"json":{"name":"John Doe","city":"London"}}'
+
+multichain-cli Art publish Autores key1 '{"json":{"nombre":"Valentin","agno_nacimiento":"2000"}}'

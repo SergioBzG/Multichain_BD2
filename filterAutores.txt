@@ -1,16 +1,13 @@
 multichain-cli Art create streamfilter autoresFilter 
 "{\"for\" : [\"Autores\"]}" 
-"function filterAutores(){
+"function filterstreamitem(){
     var obj = getfilterstreamitem();
     var json = obj.data.json;
     var count = 0;
     numberRegex = /^[0-9]*$/;
     emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     
-    for (var i in json) {
-        if (json.hasOwnProperty(i)) count++;
-    }
-    if(count === 3){
+    if(Object.keys(json).length !== 3){
         return \"Ingrese un Json con tres propiedades\";
     }
     if(obj.keys.length != 1){
