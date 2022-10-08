@@ -29,7 +29,7 @@ multichain-cli Art create streamfilter autoresFilter
     }
     if(!json.hasOwnProperty(\"correo\")){
         return \"El JSON ingresado no tiene la propiedad correo\";
-    } else if(!emailRegex.test(json.correo))) {
+    } else if(!emailRegex.test(json.correo)) {
         return \"El campo correo no es válido\"
     }
 }"
