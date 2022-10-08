@@ -1,0 +1,8 @@
+FUNCIONES UTILES
+multichain-cli Art getaddresses : Muestra la [direccion] del nodo 
+multichain-cli Art dumpprivatekey [Direccion] : Muestra la clave llave del nodo
+multichain-cli Art importprivkey [PrivKey] : Añade la llave privada del nodo destino al nodo actual 
+
+RECURSOS
+https://www.multichain.com/developers/json-rpc-api/
+https://www.multichain.com/developers/smart-filters/

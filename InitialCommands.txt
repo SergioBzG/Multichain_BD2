@@ -1,0 +1,48 @@
+IP Admin: 192.168.1.13:4401
+
+Información Nodos
+
+Nodo Admin:
+public address: 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw
+priv key: VAeaBy49ceAo8oid7YHQZnHdsAEMB9L9CwA5xvGuGpBg6brkQBaicDAe
+
+Nodo 2:
+public address:148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4
+priv key: V9k1ChLw8ShZjYX2JqvKFVdZS5Y2FhKXvFn9464F4sWVseoGkbXMFa9L
+
+-------------------------------------------------------------------------------------------------------
+
+Funcionamiento:
+
+Nodo Admin:
+multichain-util create Art
+multichaind Art -daemon"
+
+Nodo 2:
+multichaind Art@192.168.1.13:4401
+
+Nodo Admin:
+multichain-cli Art grant 148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4 connect,send,receive
+
+Nodo 2:
+multichaind Art@192.168.1.13:4401
+
+Nodo Admin:
+multichain-cli Art create stream Obras "{\"restrict\":\"write\"}"
+multichain-cli Art create stream Autores "{\"restrict\":\"write\"}"
+multichain-cli Art grant 148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4 Obras.read
+multichain-cli Art grant 148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4 Obras.write
+multichain-cli Art grant 148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4 Autores.read
+multichain-cli Art grant 148eMYK8ZpXaq3HBSbbfMCjMefEPCPLwv2qdo4 Autores.write
+
+multichain-cli Art grant 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw Obras.read
+multichain-cli Art grant 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw Obras.write
+multichain-cli Art grant 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw Autores.read
+multichain-cli Art grant 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw Autores.write
+
+-- Streamfilter Autores --
+multichain-cli Art create streamfilter filterAutores "{}" "function filterstreamitem(){ setfilterparam("maxshowndata", 2); var obj = getfilterstreamitem(); if (obj.keys.length!=1){ return \"Se requiere solo una clave\"; }}"
+multichain-cli Art approvefrom 1QdCCVzPDesehNi9fF3Zs6qQpmmrqKUjybkmaw filterAutores "{\"for\": \"Obras\", \"approve\": true}"
+
+
+
