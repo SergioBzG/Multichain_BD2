@@ -40,7 +40,7 @@ multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Autores.write
 multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Autores.read
 
 Nodo 2:
-// Inscripción a los streams obras y autores
+//Subscripción a los streams obras y autores
 multichain-cli Art subscribe Obras
 multichain-cli Art subscribe Autores
 

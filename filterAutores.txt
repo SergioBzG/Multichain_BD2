@@ -22,7 +22,7 @@ multichain-cli Art create streamfilter filterAutores "{}"
         if(!json.hasOwnProperty(\"agno_nacimiento\")){
             return \"El json debe contener el campo agno_nacimiento";
         } else if(!nacimientoR.test(json.agno_nacimiento)){
-            return \"El dato ingresado en el campo agno_nacimiento debe ser numércio\";
+            return \"El año de nacimiento debe ser un dato numérico\";
         }
         if(!json.hasOwnProperty(\"correo\")){
             return \"El json debe contener el campo correo\";

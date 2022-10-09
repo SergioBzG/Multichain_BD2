@@ -18,7 +18,7 @@ multichain-cli Art create streamfilter filterObras "{}"
         if(!json.hasOwnProperty(\"fecha_creacion\")){
             return \"El json debe contener el campo fecha_creacion\";
         } else if(!fechaR.test(json.fecha_creacion)){
-            return \"La fecha debe estar en alguno de estos formatos: DD-MM-YYYY, DD.MM.YYYY o DD/MM/YYYY\";
+            return \"La fecha debe estar en este formato: DD/MM/YYYY\";
         }
         if(!json.hasOwnProperty(\"obra\")){
             return \"El json debe contener el campo obra";
