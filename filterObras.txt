@@ -3,7 +3,7 @@ multichain-cli Art create streamfilter filterObras "{}"
     var obj = getfilterstreamitem();
     var json = obj.data.json;
     var count = 0;
-    var fechaR = /^\d{2}[./-]\d{2}[./-]\d{4}$/;
+    var fechaR = /^[0-9]{2}[\/]{1}[0-9]{2}[\/]{1}[0-9]{4}$/g;
     
     if(!verifypermission(obj.publishers[0], \"admin\")){
         if(obj.keys.length != 2){

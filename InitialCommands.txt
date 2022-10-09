@@ -13,7 +13,7 @@ Comandos usados en el punto a)
 
 Nodo Admin:
 multichain-util create Art
-multichaind Art -daemon"
+multichaind Art -daemon
 
 Nodo 2:
 multichaind Art@192.168.1.13:4401
