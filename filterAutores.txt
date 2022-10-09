@@ -3,12 +3,12 @@ multichain-cli Art create streamfilter filterAutores "{}"
     var obj = getfilterstreamitem();
     var json = obj.data.json;
     var count = 0;
-    nacimientoR = /^[0-9]*$/;
-    emailR = /^\w+@\w+.\w+/i;
+    var nacimientoR = /^[0-9]*$/;
+    var emailR = /^[a-z0-9.]{1,64}@[a-z0-9.]{1,64}$/i;
     
     if(!verifypermission(obj.publishers[0], \"admin\")){
         if(obj.keys.length != 1){
-        return \"El stream debe contener una única key\";
+        return \"El dato a publicar debe contener una única key\";
         }
         if(obj.format != \"json\"){
             return \"Sólo se permiten datos tipo JSON\"
