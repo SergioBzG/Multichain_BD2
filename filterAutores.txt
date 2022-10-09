@@ -2,10 +2,9 @@ multichain-cli Art create streamfilter filterAutores "{}"
 "function filterstreamitem(){
     var obj = getfilterstreamitem();
     var json = obj.data.json;
-    var publishers = liststreampublishers();
     var count = 0;
     nacimientoR = /^[0-9]*$/;
-    emailR = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\"+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    emailR = /^\w+@\w+.\w+/i;
     
     if(!verifypermission(obj.publishers[0], \"admin\")){
         if(obj.keys.length != 1){
