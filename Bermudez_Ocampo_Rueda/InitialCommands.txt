@@ -1,0 +1,70 @@
+Información Nodos
+
+Nodo Admin: Linux Centos 7
+public address: 1VfZ7pRiZWRPajoGUpy5cFURFueQfg89PpqUB2
+
+
+Nodo 2: Windows 10
+public address: 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM
+
+-------------------------------------------------------------------------------------------------------
+
+Comandos usados en el punto a)
+
+Nodo Admin:
+multichain-util create Art
+multichaind Art -daemon
+systemctl stop firewalld
+multichain-cli Art getaddresses
+
+Nodo 2:
+multichaind Art@192.168.1.13:4401
+
+Nodo Admin:
+multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM connect,send,receive
+
+Nodo 2:
+multichaind Art@192.168.1.13:4401
+
+Nodo Admin:
+//Creación stream Obras
+multichain-cli Art create stream Obras "{\"restrict\":\"write\"}"
+
+//Creación stream Autores
+multichain-cli Art create stream Autores "{\"restrict\":\"write\"}"
+
+//Permisos de escritura y lectura para el nodo 2 sobre el stream Obras
+multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Obras.write
+multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Obras.read
+
+//Permisos de escritura y lectura para el nodo 2 sobre el stream Autores
+multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Autores.write
+multichain-cli Art grant 1GKnuonfbQ1Es9BwsMa32WaBzLWNFywdjJJZpM Autores.read
+
+Nodo 2:
+//Subscripción a los streams obras y autores
+multichain-cli Art subscribe Obras
+multichain-cli Art subscribe Autores
+
+Nodo Admin:
+
+//Creación smart filter  'filterAutores'
+multichain-cli Art create streamfilter filterAutores '{}' 'function filterstreamitem(){var obj = getfilterstreamitem();var json = obj.data.json;var count = 0;var nacimientoR = /^[0-9]*$/;var emailR = /^[a-z0-9.]{1,64}@[a-z0-9.]{1,64}$/i;if(!verifypermission(obj.publishers[0], "admin")){if(obj.keys.length != 1){return "El dato a publicar debe contener una única key";}if(obj.format != "json"){return "Sólo se permiten datos tipo JSON"}if(Object.keys(json).length !== 3){return "El json debe contener los campos: nombre, agno_nacimiento y correo";}if(!json.hasOwnProperty("nombre")){return "El json debe contener el campo nombre";}if(!json.hasOwnProperty("agno_nacimiento")){return "El json debe contener el campo agno_nacimiento";} else if(!nacimientoR.test(json.agno_nacimiento)){return "El dato ingresado en el campo agno_nacimiento debe ser numércio";}if(!json.hasOwnProperty("correo")){return "El json debe contener el campo correo";} else if(!emailR.test(json.correo)) {return "Por favor ingrese un correo válido";}}return ;}'
+
+//Activación del smart filter 'filterAutores' para el stream Autores
+multichain-cli Art approvefrom 1VfZ7pRiZWRPajoGUpy5cFURFueQfg89PpqUB2 filterAutores '{"for": "Autores", "approve": true}'
+
+//Creación smart filter  'filterObras'
+multichain-cli Art create streamfilter filterObras '{}' 'function filterstreamitem(){var obj = getfilterstreamitem();var json = obj.data.json;var count = 0;var fechaR = /^[0-9]{2}[\/]{1}[0-9]{2}[\/]{1}[0-9]{4}$/g;if(!verifypermission(obj.publishers[0], "admin")){if(obj.keys.length != 2){return "El dato a publicar debe contener exactamente 2 keys";}if(obj.format != "json"){return "Sólo se permiten datos tipo JSON"}if(Object.keys(json).length !== 2){return "El json debe contener los campos: fecha_creacion y obra";}if(!json.hasOwnProperty("fecha_creacion")){return "El json debe contener el campo fecha_creacion";} else if(!fechaR.test(json.fecha_creacion)){return "La fecha debe estar en este formato: DD/MM/YYYY";}if(!json.hasOwnProperty("obra")){return "El json debe contener el campo obra";} }return ;}'
+
+//Activación del smart filter 'filterObras' para el stream Obras
+multichain-cli Art approvefrom 1VfZ7pRiZWRPajoGUpy5cFURFueQfg89PpqUB2 filterObras '{"for": "Obras", "approve": true}'
+
+
+
+
+
+
+
+
+
